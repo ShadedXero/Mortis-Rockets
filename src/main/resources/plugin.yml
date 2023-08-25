@@ -1,0 +1,12 @@
+name: MortisRockets
+version: '${project.version}'
+main: com.mortisdevelopment.mortisrockets.MortisRockets
+api-version: '1.18'
+softdepend:
+  - EssentialsX
+  - Towny
+depend:
+  - Vault
+commands:
+  rocket:
+    aliases: [rockets, mortisrocket, mortisrockets]
