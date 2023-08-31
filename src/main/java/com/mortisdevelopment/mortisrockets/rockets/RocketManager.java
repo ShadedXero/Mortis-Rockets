@@ -3,6 +3,9 @@ package com.mortisdevelopment.mortisrockets.rockets;
 import com.mortisdevelopment.mortisrockets.MortisRockets;
 import com.mortisdevelopment.mortisrockets.managers.CoreManager;
 import lombok.Getter;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextReplacementConfig;
+import net.kyori.adventure.text.event.ClickEvent;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -11,6 +14,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 @Getter
@@ -62,6 +66,16 @@ public class RocketManager extends CoreManager {
         return canLaunch(rocket, player);
     }
 
+    public void travel(Player player, Rocket rocket, String command) {
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        Component message = getMessage("CONFIRMATION").replaceText(TextReplacementConfig.builder().match("%cost%").replacement(formatter.format(rocket.getCost())).build());
+        player.sendMessage(message);
+        Component accept = getMessage("CONFIRMATION_ACCEPT").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, command + " confirm"));
+        player.sendMessage(accept);
+        Component deny = getMessage("CONFIRMATION_DENY");
+        player.sendMessage(deny);
+    }
+
     public boolean travel(Rocket rocket, Player player, RocketLocation rocketLocation) {
         if (!canTravel(rocket, player)) {
             return false;
@@ -100,7 +114,7 @@ public class RocketManager extends CoreManager {
         return true;
     }
 
-    public void launch(Rocket rocket, Player player, Location location) {
+    private void launch(Rocket rocket, Player player, Location location) {
         traveling.add(player.getUniqueId());
         player.sendMessage(rocket.getLaunchingMessage());
         ArmorStand stand = settings.getRocket(player);

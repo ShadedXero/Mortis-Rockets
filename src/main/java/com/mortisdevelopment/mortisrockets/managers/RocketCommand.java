@@ -59,10 +59,19 @@ public class RocketCommand implements TabExecutor {
                     return false;
                 }
                 RocketLocation rocketLocation = new RocketLocation(x, z);
-                return manager.getRocketManager().travel(rocket, target, rocketLocation);
+                if (args[args.length - 1].equalsIgnoreCase("confirm")) {
+                    return manager.getRocketManager().travel(rocket, target, rocketLocation);
+                }else {
+                    manager.getRocketManager().travel(target, rocket, getCommand(args));
+                }
             }else {
-                return manager.getRocketManager().travel(rocket, target);
+                if (args[args.length - 1].equalsIgnoreCase("confirm")) {
+                    return manager.getRocketManager().travel(rocket, target);
+                }else {
+                    manager.getRocketManager().travel(target, rocket, getCommand(args));
+                }
             }
+            return true;
         }
         if (!(sender instanceof Player)) {
             sender.sendMessage(manager.getRocketManager().getMessage("NO_CONSOLE"));
@@ -91,18 +100,39 @@ public class RocketCommand implements TabExecutor {
                 double x;
                 double z;
                 try {
-                    x = Double.parseDouble(args[3]);
-                    z = Double.parseDouble(args[4]);
+                    x = Double.parseDouble(args[2]);
+                    z = Double.parseDouble(args[3]);
                 }catch (NumberFormatException exp) {
                     return false;
                 }
                 RocketLocation rocketLocation = new RocketLocation(x, z);
-                return manager.getRocketManager().travel(rocket, player, rocketLocation);
+                if (args[args.length - 1].equalsIgnoreCase("confirm")) {
+                    return manager.getRocketManager().travel(rocket, player, rocketLocation);
+                }else {
+                    manager.getRocketManager().travel(player, rocket, getCommand(args));
+                }
             }else {
-                return manager.getRocketManager().travel(rocket, player);
+                if (args[args.length - 1].equalsIgnoreCase("confirm")) {
+                    return manager.getRocketManager().travel(rocket, player);
+                }else {
+                    manager.getRocketManager().travel(player, rocket, getCommand(args));
+                }
             }
+            return true;
         }
         return false;
+    }
+
+    private String getCommand(String[] args) {
+        StringBuilder result = new StringBuilder("/rocket ");
+        for (int i = 0; i < args.length; i++) {
+            result.append(args[i]);
+
+            if (i < args.length - 1) {
+                result.append(" ");
+            }
+        }
+        return result.toString();
     }
 
     @Override

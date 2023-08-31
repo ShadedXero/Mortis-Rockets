@@ -11,7 +11,10 @@ messages:
   no-specific-location: "&cYou cannot use specific location for this rocket"
   no-console: "&cThis command can only be executed by a player"
   travel-usage: "&cUsage: /rocket travel <rocket-id>"
-
+  already-traveling: "&cYou are already traveling"
+  confirmation: "&cThe cost for this travel is %cost%. Are you sure you want to travel?"
+  confirmation-accept: "&c[ACCEPT]"
+  confirmation-deny: "&c[DENY]"
 
 settings:
   url: "https://www.dropbox.com/sh/4dflqzxa3ukcxgg/AAAVWn-u1ufOoY0l8bD3CqqQa?dl=1"

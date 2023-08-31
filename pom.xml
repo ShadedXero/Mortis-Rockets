@@ -6,7 +6,7 @@
 
     <groupId>com.mortisdevelopment</groupId>
     <artifactId>MortisRockets</artifactId>
-    <version>2.0</version>
+    <version>2.2</version>
     <packaging>jar</packaging>
 
     <name>MortisRockets</name>
